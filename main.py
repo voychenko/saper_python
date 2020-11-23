@@ -7,9 +7,10 @@ CELLSY=3
 BOMBCOUNT=4
 DISPLAYWIDTH=600
 DISPLAYHEIGHT=400
-img=("close.png","O.png")
-im0 = pygame.image.load("images//"+img[0])
-im1 = pygame.image.load("images//"+img[1])
+img={"9":"closed.png","0":"numbers1.png"}
+
+#im0 = pygame.image.load("images//"+img[0])
+#im1 = pygame.image.load("images//"+img[1])
 
 class cellsmine(object):
 	"""dx,y,currentstate tring for cellsmine"""
@@ -34,10 +35,8 @@ class cellsmine(object):
 				if self.choosenmark==9:
 					return True # return flag bomb activated
 	def cells_show(self):
-		if self.choosenmark==9:
-			self.disp.blit(im0,(self.x,self.y))
-		if self.choosenmark==0:
-			self.disp.blit(im1,(self.x,self.y))
+		self.disp.blit(pygame.image.load("images//"+img[str(self.choosenmark)]),(self.x,self.y))
+
 
 	def setmark_choosen(self,mark):
 		self.choosenmark=mark
@@ -70,7 +69,7 @@ def game():
 	print("__________________")
 	# forming set with unical random number for bombs
 	count_mine=0
-	while count_mine<BOMBCOUNT:
+	while count_mine<(BOMBCOUNT):
 		i=random.randint(0,CELLSX-1)
 		i2=random.randint(0,CELLSY-1)
 		if (mass_array[i][i2].choosenmark!=9):
