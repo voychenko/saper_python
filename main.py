@@ -75,6 +75,13 @@ class cellsmine(object):
 		return (str(self.x)+" "+str(self.y))
 
 
+def countbombs(aks):
+	e=0
+	for i in aks:
+		if i.choosenmark==9:
+			e+=1
+	return e
+
 
 
 def game():
@@ -103,6 +110,17 @@ def game():
 			mass_array[i][i2].choosenmark=9
 			mass_array[i][i2].cells_show()
 			count_mine+=1
+	for i in range(0, CELLSX):
+		for i2 in range(0, CELLSY):
+			arg=[]
+			for d in range(-1,2):
+				for d1 in range (-1,2):
+					if ((i+d)>=0) and ((i2+d1)>=0) and ((i+d)<CELLSX) and ((i2+d1)<CELLSY) :
+						arg.append(mass_array[i+d][i2+d1])
+			if mass_array[i][i2].choosenmark!=9:
+				mass_array[i][i2].choosenmark=countbombs(arg)
+
+
  	pygame.display.flip()
  	game_over=False
 	while not game_over:
