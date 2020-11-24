@@ -10,9 +10,6 @@ DISPLAYHEIGHT=CELLSY*RESOLUTION_IMAGE
 img={"close":"closed.png","0":"numbers0.png","1":"numbers1.png","2":"numbers2.png","3":"numbers3.png","4":"numbers4.png","5":"numbers5.png","6":"numbers6.png","7":"numbers7.png","8":"numbers8.png","9":"bomb.png","flag":"flag.png"}
 
 
-#im0 = pygame.image.load("images//"+img[0])
-#im1 = pygame.image.load("images//"+img[1])
-
 class cellsmine(object):
 	"""dx,y,currentstate tring for cellsmine"""
 	def __init__(self,dis, x,y):
@@ -33,7 +30,6 @@ class cellsmine(object):
 					self.cells_show()
 					return False
 				if self.choosenmark==9:
-					print ("Bomb")
 					self.cells_show()
 					return True
 			if self.currentstate==21:
@@ -79,14 +75,13 @@ def countbombs(aks):
 			e+=1
 	return e
 
-def opennext(mass_array,i,i2):
+def opennext(mass_array,i,i2): # recursion
 	for d in range(-1,2):
 		for d1 in range (-1,2):
 
 				if ((i+d)>=0) and ((i2+d1)>=0) and ((i+d)<CELLSX) and ((i2+d1)<CELLSY) and (mass_array[i+d][i2+d1].currentstate==20):
 					mass_array[i+d][i2+d1].onclick((i+d)*RESOLUTION_IMAGE+1,(i2+d1)*RESOLUTION_IMAGE+1)
 					if mass_array[i+d][i2+d1].choosenmark==0:
-						print("recurcion")
 						opennext(mass_array,i+d,i2+d1)
 	return 
 
